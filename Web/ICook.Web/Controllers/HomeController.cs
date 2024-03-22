@@ -1,8 +1,9 @@
 ﻿namespace ICook.Web.Controllers
 {
     using System.Diagnostics;
-    
+	using AutoMapper;
 	using ICook.Services.Data;
+	using ICook.Services.Data.Models;
 	using ICook.Web.ViewModels;
     using ICook.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,15 @@
 
         public IActionResult Index()
         {
-            IndexViewModel model = this.homeService.GetIndexViewModelWithCounts();
+            CountsDto counts = this.homeService.GetCounts();
+
+            IndexViewModel model = new IndexViewModel
+            {
+                RecipesCount = counts.RecipesCount,
+                CategoriesCount = counts.CategoriesCount,
+                IngredientsCount = counts.IngredientsCount,
+                ImagesCount = counts.ImagesCount
+            };
             
             return this.View(model);
         }

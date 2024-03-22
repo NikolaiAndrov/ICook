@@ -1,9 +1,9 @@
 ﻿namespace ICook.Services.Data
 {
-    using ICook.Web.ViewModels.Home;
+	using ICook.Services.Data.Models;
 
     public interface IHomeService
     {
-        IndexViewModel GetIndexViewModelWithCounts();
+        CountsDto GetCounts();
     }
 }

@@ -2,7 +2,7 @@
 {
 	using ICook.Data.Common.Repositories;
 	using ICook.Data.Models;
-	using ICook.Web.ViewModels.Home;
+	using ICook.Services.Data.Models;
 	using System.Linq;
 
 	public class HomeService : IHomeService
@@ -25,9 +25,9 @@
 			this.recipeRepository = recipeRepository;
 		}
 
-		public IndexViewModel GetIndexViewModelWithCounts()
+		public CountsDto GetCounts()
         {
-			IndexViewModel model = new IndexViewModel
+			CountsDto model = new CountsDto
 			{
 				RecipesCount = this.recipeRepository.All().Count(),
 				CategoriesCount = this.categoryRepository.All().Count(),
