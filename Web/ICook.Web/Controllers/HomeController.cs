@@ -1,7 +1,6 @@
 ﻿namespace ICook.Web.Controllers
 {
     using System.Diagnostics;
-	using AutoMapper;
 	using ICook.Services.Data;
 	using ICook.Services.Data.Models;
 	using ICook.Web.ViewModels;
