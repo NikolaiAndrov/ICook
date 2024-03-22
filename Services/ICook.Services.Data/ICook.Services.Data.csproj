@@ -13,14 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Data\ICook.Data.Common\ICook.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\ICook.Data.Models\ICook.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\ICook.Web.ViewModels\ICook.Web.ViewModels.csproj" />
     <ProjectReference Include="..\ICook.Services.Mapping\ICook.Services.Mapping.csproj" />
   </ItemGroup>
 

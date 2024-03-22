@@ -8,7 +8,8 @@
     using ICook.Data.Models;
     using ICook.Data.Repositories;
     using ICook.Data.Seeding;
-    using ICook.Services.Mapping;
+	using ICook.Services.Data;
+	using ICook.Services.Mapping;
     using ICook.Services.Messaging;
     using ICook.Web.ViewModels;
 
@@ -63,6 +64,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IHomeService, HomeService>();
         }
 
         private static void Configure(WebApplication app)
