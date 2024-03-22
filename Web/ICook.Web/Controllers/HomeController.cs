@@ -1,16 +1,32 @@
 ﻿namespace ICook.Web.Controllers
 {
     using System.Diagnostics;
-
+	using System.Linq;
+	using ICook.Data;
     using ICook.Web.ViewModels;
-
+    using ICook.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public HomeController(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            IndexViewModel model = new IndexViewModel
+            {
+                RecipesCount = this.dbContext.Recipes.Count(),
+                CategoriesCount = this.dbContext.Categories.Count(),
+                IngredientsCount = this.dbContext.Ingredients.Count(),
+                ImagesCount = this.dbContext.Images.Count(),
+            };
+
+            return this.View(model);
         }
 
         public IActionResult Privacy()
