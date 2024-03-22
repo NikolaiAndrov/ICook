@@ -3,16 +3,20 @@
 @model IndexViewModel
 
 @{
-    this.ViewData["Title"] = "Home Page";
+	this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <h4>Our website has:</h4>
-    <ul>
-        <li>Recipes: @Model.RecipesCount</li>
-        <li>Categories: @Model.CategoriesCount</li>
-        <li>Ingredients: @Model.IngredientsCount</li>
-        <li>Images: @Model.ImagesCount</li>
-    </ul>
+	<h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+	<hr />
+	<h4>Our website has:</h4>
+
+	<div class="col-md-4 offset-md-4">
+		<ul class="list-group">
+			<li class="list-group-item bg-secondary bg-opacity-25">Recipes: @Model.RecipesCount</li>
+			<li class="list-group-item">Categories: @Model.CategoriesCount</li>
+			<li class="list-group-item bg-secondary bg-opacity-25">Ingredients: @Model.IngredientsCount</li>
+			<li class="list-group-item">Images: @Model.ImagesCount</li>
+		</ul>
+	</div>
 </div>
