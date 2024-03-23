@@ -5,8 +5,6 @@
 
 	public class IngredientViewModel
 	{
-		public int Id { get; set; }
-
 		[Required(AllowEmptyStrings = false)]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength)]
 		public string Name { get; set; }

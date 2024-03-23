@@ -44,6 +44,10 @@
 		<span asp-validation-for="CategoryId" class="text-danger"></span>
 	</div>
 
+	<div class="col-md-4 offset-4" id="IngredientsContainer">
+		<a class="btn btn-outline-primary" onclick="AddIngredients()">Add Ingredients</a>
+	</div>
+
 	<div class="col-md-4 offset-4">
 		<label asp-for="Instructions"></label>
 		<textarea asp-for="Instructions" class="form-control" rows="5"></textarea>
@@ -55,3 +59,14 @@
 	</div>
 
 </form>
+
+@section Scripts {
+	<script>
+		var index = 0;
+		function AddIngredients() {
+			$("#IngredientsContainer")
+				.append("<div class='form-control'> Name <input class='form-control' type='text' name='Ingredients["+index+"].Name'/> Quantity <input class='form-control' type='text' name='Ingredients["+index+"].Quantity'/><div/>");
+			index++;
+		}
+	</script>
+}
