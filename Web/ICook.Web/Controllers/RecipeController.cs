@@ -2,10 +2,12 @@
 {
 	using ICook.Services.Data;
 	using ICook.Web.ViewModels.Recipe;
-	using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 	using System.Security.Claims;
 	using System.Threading.Tasks;
 
+	[Authorize]
 	public class RecipeController : Controller
 	{
 		private readonly ICategoryService categoryService;
