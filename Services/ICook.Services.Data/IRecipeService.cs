@@ -9,5 +9,7 @@
 		Task AddRecipeAsync(CreateRecipeInputModel model, string userId);
 
 		Task<IEnumerable<T>> GetAllRecipesAsync<T>(int page, int itemsPerPage = 12);
+
+		Task<int> GetRecipeCountAsync();
 	}
 }

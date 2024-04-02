@@ -69,16 +69,20 @@
 
 		[HttpGet]
 		[AllowAnonymous]
-		public async Task<IActionResult> All(int id)
+		public async Task<IActionResult> All(int id = 1)
 		{
+			const int itemsPerPage = 12;
+
 			RecipePageViewModel pageViewModel = new RecipePageViewModel
 			{
-				CurrentPage = id
+				CurrentPage = id,
+				ItemsPerPage = itemsPerPage,
 			};
 
 			try
 			{
-				pageViewModel.AllRecipes = await this.recipeService.GetAllRecipesAsync<RecipeAllViewModel>(id, 12);
+				pageViewModel.AllRecipes = await this.recipeService.GetAllRecipesAsync<RecipeAllViewModel>(id, itemsPerPage);
+				pageViewModel.RecipesCount = await this.recipeService.GetRecipeCountAsync();
 			}
 			catch (Exception)
 			{

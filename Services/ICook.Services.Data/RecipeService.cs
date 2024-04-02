@@ -73,5 +73,11 @@
 
 			return recipes;
 		}
+
+		public async Task<int> GetRecipeCountAsync()
+		{
+			int count = await this.recipeRepository.AllAsNoTracking().CountAsync();
+			return count;
+		}
 	}
 }
