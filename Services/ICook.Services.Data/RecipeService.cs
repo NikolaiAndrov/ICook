@@ -5,9 +5,10 @@
 	using ICook.Web.ViewModels.Recipe;
 	using Microsoft.EntityFrameworkCore;
 	using System;
-	using System.Collections;
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading.Tasks;
+	using ICook.Services.Mapping;
 
 	public class RecipeService : IRecipeService
 	{
@@ -58,5 +59,19 @@
 			await this.recipeRepository.AddAsync(recipe);
 			await this.recipeRepository.SaveChangesAsync();
         }
+
+		public async Task<IEnumerable<T>> GetAllRecipesAsync<T>(int page, int itemsPerPage = 12)
+		{
+			IEnumerable<T> recipes = await this.recipeRepository
+				.AllAsNoTracking()
+				.OrderBy(r => r.Category.Name)
+				.ThenBy(r => r.Name)
+				.Skip((page - 1) * itemsPerPage)
+				.Take(itemsPerPage)
+				.To<T>()
+				.ToArrayAsync();
+
+			return recipes;
+		}
 	}
 }

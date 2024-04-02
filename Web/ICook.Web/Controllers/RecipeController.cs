@@ -4,6 +4,7 @@
 	using ICook.Web.ViewModels.Recipe;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+	using System;
 	using System.Security.Claims;
 	using System.Threading.Tasks;
 
@@ -70,7 +71,21 @@
 		[AllowAnonymous]
 		public async Task<IActionResult> All(int id)
 		{
-			return this.View();
+			RecipePageViewModel pageViewModel = new RecipePageViewModel
+			{
+				CurrentPage = id
+			};
+
+			try
+			{
+				pageViewModel.AllRecipes = await this.recipeService.GetAllRecipesAsync<RecipeAllViewModel>(id, 12);
+			}
+			catch (Exception)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			return this.View(pageViewModel);
 		}
 	}
 }
