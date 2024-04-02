@@ -17,7 +17,9 @@
 
         public IEnumerable<CategoryViewModel> GetCategories()
 		{
-			IEnumerable<CategoryViewModel> categories = this.categoryRepository.AllAsNoTracking()
+			IEnumerable<CategoryViewModel> categories = this.categoryRepository
+				.AllAsNoTracking()
+				.OrderBy(c => c.Name)
 				.Select(c => new CategoryViewModel
 				{
 					Id = c.Id,
