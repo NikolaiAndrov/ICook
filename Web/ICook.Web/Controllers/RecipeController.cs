@@ -65,5 +65,12 @@
 
 			return this.RedirectToAction("Index", "Home");
 		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<IActionResult> All(int id)
+		{
+			return this.View();
+		}
 	}
 }
