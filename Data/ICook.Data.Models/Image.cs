@@ -11,7 +11,9 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public string AddedByUserId { get; set; }
+		public string RemoteImageUrl { get; set; }
+
+		public string AddedByUserId { get; set; }
 
         public virtual ApplicationUser AddedByUser { get; set; }
 
@@ -20,5 +22,6 @@
         public int RecipeId { get; set; }
 
         public virtual Recipe Recipe { get; set; }
+
     }
 }
