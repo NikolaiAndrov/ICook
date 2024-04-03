@@ -1,0 +1,36 @@
+﻿@model BasePaginationModel
+
+<nav aria-label="...">
+	<ul class="pagination justify-content-center">
+		<li class="page-item @if (!Model.HasPreviousPage) {
+			<text>disabled</text>
+		}">
+			<a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPage">Previous</a>
+		</li>
+		@for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
+		{
+			if (i > 0)
+			{
+				<li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+			}
+		}
+		<li class="page-item active" aria-current="page">
+			<span class="page-link">
+				@Model.CurrentPage
+				<span class="sr-only"></span>
+			</span>
+		</li>
+		@for (int i = Model.CurrentPage + 1; i <= Model.CurrentPage + 4; i++)
+		{
+			if (i <= Model.PagesCount)
+			{
+				<li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+			}
+		}
+		<li class="page-item @if (!Model.HasNextPage) {
+			<text>disabled</text>
+		}">
+			<a class="page-link" asp-action="All" asp-route-id="@Model.NextPage">Next</a>
+		</li>
+	</ul>
+</nav>
