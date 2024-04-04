@@ -9,11 +9,14 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 	using ICook.Services.Mapping;
+	using System.IO;
+	using static Common.ErrorMessages;
 
 	public class RecipeService : IRecipeService
 	{
 		private readonly IDeletableEntityRepository<Recipe> recipeRepository;
 		private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
+		private readonly string[] allowedExtensions = new string[] {".jpg", ".jpeg", ".png"};
 
         public RecipeService(IDeletableEntityRepository<Recipe> recipeRepository, IDeletableEntityRepository<Ingredient> ingredientRepository)
         {
@@ -21,7 +24,7 @@
 			this.ingredientRepository = ingredientRepository;
         }
 
-        public async Task AddRecipeAsync(CreateRecipeInputModel model, string userId)
+        public async Task AddRecipeAsync(CreateRecipeInputModel model, string userId, string imagePath)
 		{
 			Recipe recipe = new Recipe
 			{
@@ -55,6 +58,32 @@
 
 				recipe.Ingredients.Add(recipeIngredient);
             }
+
+			foreach (var currentImage in model.Images)
+			{
+				string imageExtension = Path.GetExtension(currentImage.FileName);
+
+				if (!allowedExtensions.Any(x => x == imageExtension))
+				{
+					throw new InvalidDataException(InvalidImageFileErrorMessage);
+				}
+
+				Image image = new Image
+				{
+					AddedByUserId = userId,
+					Recipe = recipe,
+					Extension = imageExtension
+				};
+				recipe.Images.Add(image);
+
+				Directory.CreateDirectory($"{imagePath}/recipes/");
+				string physicalPath = $"{imagePath}/recipes/{image.Id}{imageExtension}";
+
+				using (Stream fileStream = new FileStream(physicalPath, FileMode.Create))
+				{
+					await currentImage.CopyToAsync(fileStream);
+				}
+			}
 
 			await this.recipeRepository.AddAsync(recipe);
 			await this.recipeRepository.SaveChangesAsync();

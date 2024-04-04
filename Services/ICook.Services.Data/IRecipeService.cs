@@ -6,7 +6,7 @@
 
 	public interface IRecipeService
 	{
-		Task AddRecipeAsync(CreateRecipeInputModel model, string userId);
+		Task AddRecipeAsync(CreateRecipeInputModel model, string userId, string imagePath);
 
 		Task<IEnumerable<T>> GetAllRecipesAsync<T>(int page, int itemsPerPage = 12);
 

@@ -24,7 +24,7 @@
 				opt.MapFrom(r => 
 					r.Images.FirstOrDefault().RemoteImageUrl != null ?
 					r.Images.FirstOrDefault().RemoteImageUrl :
-					"images/recipes/" + r.Images.FirstOrDefault().Id + "." + r.Images.FirstOrDefault().Extension));
+					"/images/recipes/" + r.Images.FirstOrDefault().Id + r.Images.FirstOrDefault().Extension));
 		}
 	}
 }

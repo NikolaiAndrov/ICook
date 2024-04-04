@@ -14,7 +14,7 @@
         {
 			this.Categories = new HashSet<CategoryViewModel>();
 			this.Ingredients = new HashSet<IngredientViewModel>();
-			this.Images = new List<IFormFile>();
+			this.Images = new HashSet<IFormFile>();
         }
 
 		[Required(AllowEmptyStrings = false)]

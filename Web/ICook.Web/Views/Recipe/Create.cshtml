@@ -5,7 +5,7 @@
 </div>
 <hr />
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
 	<div asp-validation-summary="All"></div>
 
@@ -52,6 +52,12 @@
 		<label asp-for="Instructions"></label>
 		<textarea asp-for="Instructions" class="form-control" rows="5"></textarea>
 		<span asp-validation-for="Instructions" class="text-danger"></span>
+	</div>
+
+	<div class="col-md-4 offset-4">
+		<label asp-for="Images"></label>
+		<input asp-for="Images" class="form-control" />
+		<span asp-validation-for="Images" class="text-danger"></span>
 	</div>
 
 	<div class="col-md-4 offset-4 mt-3">
