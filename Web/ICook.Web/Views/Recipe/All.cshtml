@@ -12,11 +12,11 @@
 <div class="row">
 	@foreach (var recipe in this.Model.AllRecipes)
 	{
-		<div class="media col-md-3 mb-3">
-			<img class="mr-3 img-fluid" src="@recipe.ImageUrl" style="height: 250px; object-fit: cover;">
-			<div class="media-body">
-				<h5 class="mt-0">@recipe.Name</h5>
-				@recipe.CategoryName
+		<div class="card" style="width: 18rem;">
+			<img src="@recipe.ImageUrl" style="height: 250px; object-fit: cover;">
+			<div class="card-body">
+				<h5 class="card-title">@recipe.Name</h5>
+				<p class="card-text">@recipe.CategoryName</p>
 			</div>
 		</div>
 	}
