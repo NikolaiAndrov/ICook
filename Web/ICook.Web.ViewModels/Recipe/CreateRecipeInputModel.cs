@@ -2,6 +2,7 @@
 {
 	using ICook.Web.ViewModels.Category;
 	using ICook.Web.ViewModels.Ingredient;
+	using Microsoft.AspNetCore.Http;
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@
         {
 			this.Categories = new HashSet<CategoryViewModel>();
 			this.Ingredients = new HashSet<IngredientViewModel>();
+			this.Images = new List<IFormFile>();
         }
 
 		[Required(AllowEmptyStrings = false)]
@@ -43,5 +45,7 @@
 		public IEnumerable<CategoryViewModel> Categories { get; set; }
 
 		public IEnumerable<IngredientViewModel> Ingredients { get; set; }
+
+		public IEnumerable<IFormFile> Images { get; set; }
 	}
 }
