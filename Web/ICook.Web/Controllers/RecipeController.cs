@@ -71,6 +71,11 @@
 		[AllowAnonymous]
 		public async Task<IActionResult> All(int id = 1)
 		{
+			if (id <= 0)
+			{
+				return this.NotFound();
+			}
+
 			const int itemsPerPage = 12;
 
 			RecipePageViewModel pageViewModel = new RecipePageViewModel
@@ -87,6 +92,11 @@
 			catch (Exception)
 			{
 				return this.RedirectToAction("Index", "Home");
+			}
+
+			if (id > pageViewModel.PagesCount)
+			{
+				return this.NotFound();
 			}
 
 			return this.View(pageViewModel);
