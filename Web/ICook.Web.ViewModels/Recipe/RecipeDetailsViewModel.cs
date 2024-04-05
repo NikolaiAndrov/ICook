@@ -33,7 +33,10 @@
 
 		public string CategoryName { get; set; }
 
-		public IEnumerable<IngredientViewModel> Ingredients { get; set; }
+		public int CategoryRecipesCount { get; set; }
+
+
+        public IEnumerable<IngredientViewModel> Ingredients { get; set; }
 
 		public void CreateMappings(IProfileExpression configuration)
 		{
