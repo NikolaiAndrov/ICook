@@ -4,7 +4,9 @@
 	this.ViewData["Title"] = "Recipe Details";
 }
 
-<h1 class="display-6">@this.ViewData["Title"]</h1>
+<div class="text-center">
+    <h1 class="display-6">@this.ViewData["Title"]</h1>
+</div>
 
 <hr />
 
@@ -19,14 +21,12 @@
         <p>Portions count: @Model.PortionsCount</p>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">Ingredients:</li>
+        <h6 class="list-group-item">Ingredients:</h6>
         @foreach (var ingredient in Model.Ingredients)
         {
             <li class="list-group-item">@ingredient.IngredientName @ingredient.Quantity</li>
         }
 
-        <li class="list-group-item">@Model.Instructions</li>
+        <li class="list-group-item">Instructions: @Model.Instructions</li>
     </ul>
-    <div class="card-body">
-    </div>
-</div>
+</div>  
