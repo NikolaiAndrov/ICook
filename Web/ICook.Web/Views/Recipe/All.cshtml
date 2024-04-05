@@ -16,7 +16,8 @@
 			<img src="@recipe.ImageUrl" style="height: 250px; object-fit: cover;">
 			<div class="card-body">
 				<h5 class="card-title">@recipe.Name</h5>
-				<p class="card-text">@recipe.CategoryName</p>
+				<p class="card-text">Category: @recipe.CategoryName</p>
+				<a asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-outline-primary">Details</a>
 			</div>
 		</div>
 	}
