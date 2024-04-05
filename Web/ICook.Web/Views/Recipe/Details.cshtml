@@ -21,7 +21,7 @@
         <p>Portions count: @Model.PortionsCount</p>
     </div>
     <ul class="list-group list-group-flush">
-        <h6 class="list-group-item">Ingredients:</h6>
+        <li class="list-group-item fw-semibold">Ingredients:</li>
         @foreach (var ingredient in Model.Ingredients)
         {
             <li class="list-group-item">@ingredient.IngredientName @ingredient.Quantity</li>
