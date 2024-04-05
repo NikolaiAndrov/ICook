@@ -40,13 +40,13 @@
             foreach (var currentIngredient in model.Ingredients)
             {
 				Ingredient ingredient = await this.ingredientRepository.All()
-					.FirstOrDefaultAsync(i => i.Name == currentIngredient.Name);
+					.FirstOrDefaultAsync(i => i.Name == currentIngredient.IngredientName);
 
 				if (ingredient == null)
 				{
 					ingredient = new Ingredient
 					{
-						Name = currentIngredient.Name
+						Name = currentIngredient.IngredientName
 					};
 				}
 
@@ -107,6 +107,17 @@
 		{
 			int count = await this.recipeRepository.AllAsNoTracking().CountAsync();
 			return count;
+		}
+
+		public async Task<T> GetRecipeDetailsByIdAsync<T>(int id)
+		{
+			var recipeDetail = await this.recipeRepository
+				.AllAsNoTracking()
+				.Where(r => r.Id == id)
+				.To<T>()
+				.FirstOrDefaultAsync();
+
+			return recipeDetail;
 		}
 	}
 }

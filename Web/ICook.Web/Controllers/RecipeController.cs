@@ -123,5 +123,22 @@
 
 			return this.View(pageViewModel);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			RecipeDetailsViewModel model;
+
+			try
+			{
+				model = await this.recipeService.GetRecipeDetailsByIdAsync<RecipeDetailsViewModel>(id);
+			}
+			catch (Exception)
+			{
+				return this.BadRequest();
+			}
+
+			return this.View(model);
+		}
 	}
 }

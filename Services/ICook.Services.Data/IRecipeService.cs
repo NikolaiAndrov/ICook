@@ -10,6 +10,8 @@
 
 		Task<IEnumerable<T>> GetAllRecipesAsync<T>(int page, int itemsPerPage = 12);
 
+		Task<T> GetRecipeDetailsByIdAsync<T>(int id);
+
 		Task<int> GetRecipeCountAsync();
 	}
 }

@@ -8,7 +8,7 @@
 	using ICook.Web.ViewModels.Ingredient;
 	using ICook.Data.Models;
 
-	internal class RecipeDetailsViewModel : IMapFrom<Recipe>, IHaveCustomMappings
+	public class RecipeDetailsViewModel : IMapFrom<Recipe>, IHaveCustomMappings
 	{
         public RecipeDetailsViewModel()
         {
