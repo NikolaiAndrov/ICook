@@ -1,8 +1,9 @@
 ﻿namespace ICook.Services.Data
 {
-	using ICook.Web.ViewModels.Recipe;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
+
+	using Web.ViewModels.Recipe;
 
 	public interface IRecipeService
 	{

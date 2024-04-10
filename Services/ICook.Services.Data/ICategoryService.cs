@@ -1,7 +1,8 @@
 ﻿namespace ICook.Services.Data
 {
-	using ICook.Web.ViewModels.Category;
 	using System.Collections.Generic;
+
+	using Web.ViewModels.Category;
 
 	public interface ICategoryService
 	{

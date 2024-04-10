@@ -1,11 +1,13 @@
 ﻿namespace ICook.Web.Controllers
 {
     using System.Diagnostics;
+
+    using Microsoft.AspNetCore.Mvc;
+
 	using ICook.Services.Data;
 	using ICook.Services.Data.Models;
-	using ICook.Web.ViewModels;
-    using ICook.Web.ViewModels.Home;
-    using Microsoft.AspNetCore.Mvc;
+	using ViewModels;
+    using ViewModels.Home;
 
     public class HomeController : BaseController
     {

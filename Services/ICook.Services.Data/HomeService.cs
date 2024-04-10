@@ -1,9 +1,10 @@
 ﻿namespace ICook.Services.Data
 {
+	using System.Linq;
+
 	using ICook.Data.Common.Repositories;
 	using ICook.Data.Models;
 	using ICook.Services.Data.Models;
-	using System.Linq;
 
 	public class HomeService : IHomeService
 	{

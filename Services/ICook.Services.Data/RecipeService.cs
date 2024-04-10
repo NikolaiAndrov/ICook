@@ -1,15 +1,17 @@
 ﻿namespace ICook.Services.Data
 {
-	using ICook.Data.Common.Repositories;
-	using ICook.Data.Models;
-	using ICook.Web.ViewModels.Recipe;
-	using Microsoft.EntityFrameworkCore;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
-	using ICook.Services.Mapping;
 	using System.IO;
+
+	using Microsoft.EntityFrameworkCore;
+
+	using ICook.Data.Common.Repositories;
+	using ICook.Data.Models;
+	using ICook.Web.ViewModels.Recipe;
+	using ICook.Services.Mapping;
 	using static Common.ApplicationMessages;
 
 	public class RecipeService : IRecipeService

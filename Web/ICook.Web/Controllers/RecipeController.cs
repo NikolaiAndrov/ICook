@@ -1,14 +1,16 @@
 ﻿namespace ICook.Web.Controllers
 {
-	using ICook.Services.Data;
-	using ICook.Web.ViewModels.Recipe;
-    using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.AspNetCore.Mvc;
 	using System;
 	using System.Linq;
 	using System.Security.Claims;
 	using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Mvc;
+
+	using Services.Data;
+	using ViewModels.Recipe;
 	using static Common.ApplicationMessages;
 
 	[Authorize]

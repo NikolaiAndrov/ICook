@@ -1,10 +1,11 @@
 ﻿namespace ICook.Services.Data
 {
+	using System.Collections.Generic;
+	using System.Linq;
+
 	using ICook.Data.Common.Repositories;
 	using ICook.Data.Models;
 	using ICook.Web.ViewModels.Category;
-	using System.Collections.Generic;
-	using System.Linq;
 
 	public class CategoryService : ICategoryService
 	{
