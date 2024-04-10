@@ -63,6 +63,7 @@
 				}
 				catch (System.Exception)
 				{
+					this.TempData[ErrorMessage] = UnexpectedErrorMessage;
 					return this.RedirectToAction("Index", "Home");
 				}
 
