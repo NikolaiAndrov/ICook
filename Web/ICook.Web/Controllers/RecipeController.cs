@@ -9,7 +9,7 @@
 	using System.Linq;
 	using System.Security.Claims;
 	using System.Threading.Tasks;
-	using static Common.ErrorMessages;
+	using static Common.ApplicationMessages;
 
 	[Authorize]
 	public class RecipeController : Controller
@@ -86,6 +86,7 @@
 				return this.RedirectToAction("Index", "Home");
 			}
 
+			this.TempData[SuccessMessage] = RecipeAddedSuccessfullyMessage;
 			return this.RedirectToAction("Index", "Home");
 		}
 

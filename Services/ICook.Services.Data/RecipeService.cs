@@ -10,7 +10,7 @@
 	using System.Threading.Tasks;
 	using ICook.Services.Mapping;
 	using System.IO;
-	using static Common.ErrorMessages;
+	using static Common.ApplicationMessages;
 
 	public class RecipeService : IRecipeService
 	{
