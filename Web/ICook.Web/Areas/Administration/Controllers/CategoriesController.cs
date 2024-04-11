@@ -119,8 +119,10 @@
                         throw;
                     }
                 }
+
                 return this.RedirectToAction(nameof(Index));
             }
+
             return this.View(category);
         }
 
