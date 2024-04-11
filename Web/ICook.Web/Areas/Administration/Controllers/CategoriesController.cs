@@ -22,7 +22,7 @@
         public async Task<IActionResult> Index()
         {
               return this.View(await this.categoryRepository
-                  .AllAsNoTracking()
+                  .AllAsNoTrackingWithDeleted()
                   .ToListAsync());
         }
 
