@@ -7,6 +7,7 @@
 
     using ICook.Data.Models;
     using ICook.Data.Common.Repositories;
+    using System.Linq;
 
     [Area("Administration")]
     public class CategoriesController : AdministrationController
@@ -23,6 +24,7 @@
         {
               return this.View(await this.categoryRepository
                   .AllAsNoTrackingWithDeleted()
+                  .OrderBy(x => x.Name)
                   .ToListAsync());
         }
 
