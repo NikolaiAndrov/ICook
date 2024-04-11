@@ -9,32 +9,36 @@
     using Microsoft.EntityFrameworkCore;
     using ICook.Data;
     using ICook.Data.Models;
+	using ICook.Data.Common.Repositories;
 
-    [Area("Administration")]
+	[Area("Administration")]
     public class CategoriesController : AdministrationController
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Category> categoryRepository;
 
-        public CategoriesController(ApplicationDbContext dbContext)
+        public CategoriesController(IDeletableEntityRepository<Category> categoryRepository)
         {
-            this.dbContext = dbContext;
+            this.categoryRepository = categoryRepository;
         }
 
         // GET: Administration/Categories
         public async Task<IActionResult> Index()
         {
-              return this.View(await this.dbContext.Categories.ToListAsync());
+              return this.View(await this.categoryRepository
+                  .AllAsNoTracking()
+                  .ToListAsync());
         }
 
         // GET: Administration/Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || this.dbContext.Categories == null)
+            if (id == null || this.categoryRepository.AllAsNoTracking() == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            var category = await this.dbContext.Categories
+            var category = await this.categoryRepository
+                .AllAsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (category == null)
@@ -58,11 +62,11 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                this.dbContext.Add(category);
-                await this.dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await this.categoryRepository.AddAsync(category);
+                await this.categoryRepository.SaveChangesAsync();
+                return this.RedirectToAction(nameof(Index));
             }
 
             return this.View(category);
@@ -71,12 +75,14 @@
         // GET: Administration/Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || this.dbContext.Categories == null)
+            if (id == null || this.categoryRepository.AllAsNoTracking() == null)
             {
                 return this.NotFound();
             }
 
-            var category = await this.dbContext.Categories.FindAsync(id);
+            var category = await this.categoryRepository
+                .All()
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {
@@ -102,12 +108,12 @@
             {
                 try
                 {
-                    this.dbContext.Update(category);
-                    await this.dbContext.SaveChangesAsync();
+                    this.categoryRepository.Update(category);
+                    await this.categoryRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (await this.CategoryExists(category.Id) == false)
                     {
                         return this.NotFound();
                     }
@@ -124,12 +130,13 @@
         // GET: Administration/Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || this.dbContext.Categories == null)
+            if (id == null || this.categoryRepository.AllAsNoTracking() == null)
             {
                 return this.NotFound();
             }
 
-            var category = await this.dbContext.Categories
+            var category = await this.categoryRepository
+                .All()
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (category == null)
@@ -145,25 +152,27 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (this.dbContext.Categories == null)
+            if (this.categoryRepository.AllAsNoTracking() == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
             }
 
-            var category = await dbContext.Categories.FindAsync(id);
+            var category = await categoryRepository
+                .All()
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category != null)
             {
-                dbContext.Categories.Remove(category);
+                categoryRepository.Delete(category);
             }
             
-            await this.dbContext.SaveChangesAsync();
+            await this.categoryRepository.SaveChangesAsync();
             return this.RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private async Task<bool> CategoryExists(int id)
         {
-          return this.dbContext.Categories.Any(e => e.Id == id);
+          return await this.categoryRepository.AllAsNoTracking().AnyAsync(e => e.Id == id);
         }
     }
 }
