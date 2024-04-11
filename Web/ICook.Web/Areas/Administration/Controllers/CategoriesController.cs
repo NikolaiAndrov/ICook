@@ -1,17 +1,14 @@
 ﻿namespace ICook.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
-    using ICook.Data;
-    using ICook.Data.Models;
-	using ICook.Data.Common.Repositories;
 
-	[Area("Administration")]
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using ICook.Data.Models;
+    using ICook.Data.Common.Repositories;
+
+    [Area("Administration")]
     public class CategoriesController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Category> categoryRepository;
