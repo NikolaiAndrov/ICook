@@ -121,5 +121,17 @@
 
 			return recipeDetail;
 		}
-	}
+
+        public async Task<List<T>> GetRecipesForIndexAsync<T>()
+        {
+			var recipes = await this.recipeRepository
+				.AllAsNoTracking()
+				.OrderBy(r => Guid.NewGuid())
+				.Take(5)
+				.To<T>()
+				.ToListAsync();
+
+			return recipes;
+        }
+    }
 }

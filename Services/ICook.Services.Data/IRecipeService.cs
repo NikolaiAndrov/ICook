@@ -13,6 +13,8 @@
 
 		Task<T> GetRecipeDetailsByIdAsync<T>(int id);
 
+		Task<List<T>> GetRecipesForIndexAsync<T>();
+
 		Task<int> GetRecipeCountAsync();
 	}
 }
