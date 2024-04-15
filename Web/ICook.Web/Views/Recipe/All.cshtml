@@ -1,4 +1,8 @@
-﻿@model RecipePageViewModel
+﻿@using ICook.Services.Data
+@using System.Security.Claims;
+@using static ICook.Common.GlobalConstants
+@inject IRecipeService recipeService
+@model RecipePageViewModel
 
 @{
 	this.ViewData["Title"] = "All Recipes";
@@ -17,7 +21,18 @@
 			<div class="card-body">
 				<h5 class="card-title">@recipe.Name</h5>
 				<p class="card-text">Category: @recipe.CategoryName</p>
-				<a asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-outline-primary">Details</a>
+				<a asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-outline-info">Details</a>
+				@if (this.User?.Identity?.IsAuthenticated ?? false)
+				{
+					string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+					bool isCreator = await this.recipeService.IsUserCreatorOfRecipeAsync(recipe.Id, userId);
+					bool isAdmin = this.User.IsInRole(AdministratorRoleName);
+
+					if (isCreator || isAdmin)
+					{
+						<a asp-controller="Recipe" asp-action="Edit" asp-route-id="@recipe.Id" class="btn btn-outline-primary">Edit</a>
+					}
+				}
 			</div>
 		</div>
 	}
