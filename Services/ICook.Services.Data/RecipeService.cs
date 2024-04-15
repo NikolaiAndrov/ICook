@@ -136,5 +136,21 @@
 
 		public async Task<bool> IsUserCreatorOfRecipeAsync(int recipeId, string userId)
 			=> await this.recipeRepository.AllAsNoTracking().AnyAsync(x => x.Id == recipeId && x.UserId == userId);
+
+		public async Task EditRecipeAsync(int recipeId, EditRecipeInputModel model)
+		{
+			Recipe recipe = await this.recipeRepository
+				.All()
+				.FirstOrDefaultAsync(rp => rp.Id == recipeId);
+
+			recipe.Name = model.Name;
+			recipe.Instructions = model.Instructions;
+			recipe.CookingTime = TimeSpan.FromMinutes(model.CookingTime);
+			recipe.PreparationTime = TimeSpan.FromMinutes(model.PreparationTime);
+			recipe.PortionsCount = model.PortionsCount;
+			recipe.CategoryId = model.CategoryId;
+
+			await this.recipeRepository.SaveChangesAsync();
+		}
 	}
 }

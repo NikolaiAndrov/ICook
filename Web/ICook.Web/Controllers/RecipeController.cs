@@ -54,6 +54,45 @@
 			return this.View(model);
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, EditRecipeInputModel model)
+		{
+			string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			if (!await this.recipeService.IsUserCreatorOfRecipeAsync(id, userId) && !this.User.IsInRole(AdministratorRoleName))
+			{
+				this.TempData[ErrorMessage] = UnauthorizedMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			if (!this.ModelState.IsValid)
+			{
+				try
+				{
+					model.Categories = this.categoryService.GetCategories();
+				}
+				catch (System.Exception)
+				{
+					this.TempData[ErrorMessage] = UnexpectedErrorMessage;
+					return this.RedirectToAction("Index", "Home");
+				}
+
+				return this.View(model);
+			}
+
+			try
+			{
+				await this.recipeService.EditRecipeAsync(id, model);
+			}
+			catch (Exception)
+			{
+				this.TempData[ErrorMessage] = UnexpectedErrorMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			return this.RedirectToAction(nameof(this.Details), new { id });
+		}
+
         [HttpGet]
 		public IActionResult Create()
 		{

@@ -18,5 +18,7 @@
 		Task<int> GetRecipeCountAsync();
 
 		Task<bool> IsUserCreatorOfRecipeAsync(int recipeId, string userId);
+
+		Task EditRecipeAsync(int recipeId, EditRecipeInputModel model);
 	}
 }
