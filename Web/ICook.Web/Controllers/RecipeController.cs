@@ -8,10 +8,10 @@
     using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Mvc;
-
 	using Services.Data;
 	using ViewModels.Recipe;
 	using static Common.ApplicationMessages;
+	using static Common.GlobalConstants;
 
 	[Authorize]
 	public class RecipeController : Controller
@@ -26,6 +26,33 @@
 			this.recipeService = recipeService;
 			this.hostEnvironment = hostEnvironment;	
         }
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+			string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			if (!await this.recipeService.IsUserCreatorOfRecipeAsync(id, userId) && !this.User.IsInRole(AdministratorRoleName))
+			{
+				this.TempData[ErrorMessage] = UnauthorizedMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			EditRecipeInputModel model;
+
+			try
+			{
+				model = await this.recipeService.GetRecipeByIdAsync<EditRecipeInputModel>(id);
+				model.Categories = this.categoryService.GetCategories();
+			}
+			catch (Exception)
+			{
+				this.TempData[ErrorMessage] = UnexpectedErrorMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			return this.View(model);
+		}
 
         [HttpGet]
 		public IActionResult Create()
@@ -136,7 +163,7 @@
 
 			try
 			{
-				model = await this.recipeService.GetRecipeDetailsByIdAsync<RecipeDetailsViewModel>(id);
+				model = await this.recipeService.GetRecipeByIdAsync<RecipeDetailsViewModel>(id);
 			}
 			catch (Exception)
 			{

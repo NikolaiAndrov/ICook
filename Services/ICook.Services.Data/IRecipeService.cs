@@ -11,10 +11,12 @@
 
 		Task<IEnumerable<T>> GetAllRecipesAsync<T>(int page, int itemsPerPage = 12);
 
-		Task<T> GetRecipeDetailsByIdAsync<T>(int id);
+		Task<T> GetRecipeByIdAsync<T>(int id);
 
 		Task<List<T>> GetRecipesForIndexAsync<T>();
 
 		Task<int> GetRecipeCountAsync();
+
+		Task<bool> IsUserCreatorOfRecipeAsync(int recipeId, string userId);
 	}
 }

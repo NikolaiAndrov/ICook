@@ -111,7 +111,7 @@
 			return count;
 		}
 
-		public async Task<T> GetRecipeDetailsByIdAsync<T>(int id)
+		public async Task<T> GetRecipeByIdAsync<T>(int id)
 		{
 			var recipeDetail = await this.recipeRepository
 				.AllAsNoTracking()
@@ -133,5 +133,8 @@
 
 			return recipes;
         }
-    }
+
+		public async Task<bool> IsUserCreatorOfRecipeAsync(int recipeId, string userId)
+			=> await this.recipeRepository.AllAsNoTracking().AnyAsync(x => x.Id == recipeId && x.UserId == userId);
+	}
 }

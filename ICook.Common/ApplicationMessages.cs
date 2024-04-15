@@ -7,6 +7,7 @@
 
 		public const string RecipeAddedSuccessfullyMessage = "New recipe added successfully!";
 		public const string UnexpectedErrorMessage = "Unexpected error occured while proccessing your request!";
+		public const string UnauthorizedMessage = "You are not authorized to perform this action!";
 
 		public const string EmptyImagesErrorMessage = "You should upload at least 1 image!";
 		public const string TooManyImagesErrorMessage = "You cannot upload more than 5 images!";
