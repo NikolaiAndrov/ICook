@@ -42,7 +42,7 @@
             foreach (var currentIngredient in model.Ingredients)
             {
 				Ingredient ingredient = await this.ingredientRepository.All()
-					.FirstOrDefaultAsync(i => i.Name == currentIngredient.IngredientName);
+					.FirstOrDefaultAsync(i => i.Name.ToLower() == currentIngredient.IngredientName.ToLower());
 
 				if (ingredient == null)
 				{
