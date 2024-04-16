@@ -6,6 +6,8 @@
 		public const string ErrorMessage = "ErrorMessage";
 
 		public const string RecipeAddedSuccessfullyMessage = "New recipe added successfully!";
+		public const string RecipeDeletedSuccessfully = "The recipe was deleted successfully!";
+		public const string RecipeNotFoundMessage = "Recipe not found!";
 		public const string UnexpectedErrorMessage = "Unexpected error occured while proccessing your request!";
 		public const string UnauthorizedMessage = "You are not authorized to perform this action!";
 

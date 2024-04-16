@@ -30,6 +30,14 @@
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
+			bool isRecipeExisting = await this.recipeService.IsRecipeExistingByIdAsync(id);
+
+			if (!isRecipeExisting)
+			{
+				this.TempData[ErrorMessage] = RecipeNotFoundMessage;
+				return this.RedirectToAction(nameof(this.All));
+			}
+
 			string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			if (!await this.recipeService.IsUserCreatorOfRecipeAsync(id, userId) && !this.User.IsInRole(AdministratorRoleName))
@@ -57,6 +65,14 @@
 		[HttpPost]
 		public async Task<IActionResult> Edit(int id, EditRecipeInputModel model)
 		{
+			bool isRecipeExisting = await this.recipeService.IsRecipeExistingByIdAsync(id);
+
+			if (!isRecipeExisting)
+			{
+				this.TempData[ErrorMessage] = RecipeNotFoundMessage;
+				return this.RedirectToAction(nameof(this.All));
+			}
+
 			string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			if (!await this.recipeService.IsUserCreatorOfRecipeAsync(id, userId) && !this.User.IsInRole(AdministratorRoleName))
@@ -210,6 +226,39 @@
 			}
 
 			return this.View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id)
+		{
+			bool isRecipeExisting = await this.recipeService.IsRecipeExistingByIdAsync(id);
+
+			if (!isRecipeExisting)
+			{
+				this.TempData[ErrorMessage] = RecipeNotFoundMessage;
+				return this.RedirectToAction(nameof(this.All));
+			}
+
+			string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			if (!await this.recipeService.IsUserCreatorOfRecipeAsync(id, userId) && !this.User.IsInRole(AdministratorRoleName))
+			{
+				this.TempData[ErrorMessage] = UnauthorizedMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			try
+			{
+				await this.recipeService.DeleteRecipeAsync(id);
+			}
+			catch (Exception)
+			{
+				this.TempData[ErrorMessage] = UnexpectedErrorMessage;
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			this.TempData[SuccessMessage] = RecipeDeletedSuccessfully;
+			return this.RedirectToAction(nameof(this.All));
 		}
 	}
 }

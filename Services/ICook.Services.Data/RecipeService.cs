@@ -152,5 +152,18 @@
 
 			await this.recipeRepository.SaveChangesAsync();
 		}
+
+		public async Task DeleteRecipeAsync(int recipeId)
+		{
+			Recipe recipe = await this.recipeRepository
+				.All()
+				.FirstAsync(x => x.Id == recipeId);
+
+			this.recipeRepository.Delete(recipe);
+			await this.recipeRepository.SaveChangesAsync();
+		}
+
+		public async Task<bool> IsRecipeExistingByIdAsync(int recipeId)
+			=> await this.recipeRepository.AllAsNoTracking().AnyAsync(x => x.Id == recipeId);
 	}
 }
