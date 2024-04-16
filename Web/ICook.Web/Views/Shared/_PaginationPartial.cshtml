@@ -4,7 +4,7 @@
 	<ul class="pagination justify-content-center">
 		<li class="page-item @if (!Model.HasPreviousPage) {
 			<text>disabled</text>
-		}">
+	    }">
 			<a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPage">Previous</a>
 		</li>
 		@for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
